@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>增改管理员</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+      <link rel="shortcut icon" href="../static/favicon.ico" th:href="@{/favicon.ico}" type="image/x-icon" />
+      <link rel="stylesheet" href="../static/css/font.css" th:href="@{/css/font.css}">
+      <link rel="stylesheet" href="../static/css/xadmin.css" th:href="@{/css/xadmin.css}">
+      <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+      <script type="text/javascript" src="../static/lib/layui/layui.js" th:src="@{/lib/layui/layui.js}" charset="utf-8"></script>
+      <script type="text/javascript" src="../static/js/xadmin.js" th:src="@{/js/xadmin.js}"></script>
+      <script type="text/javascript" src="../static/js/md5/md5.min.js" th:src="@{/js/md5/md5.min.js}"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+<body>
+<style type="text/css">
+.layui-form-label{
+    width:150px;
+}
+</style>
+    <div class="x-body">
+        <form class="layui-form" method="post" th:object="${adminInfo}" >
+            <input type="text" name="pageType" readonly="readonly" th:value="${adminInfo.getAdminAccount()}!=null?'1':'0'" autocomplete="off" class="layui-input" style="display:none">
+            <div class="layui-form-item" th:style="${adminInfo.getAdminAccount()} != null?'display:none;':''">
+                <label for="username" class="layui-form-label">
+                    <span class="x-red" >*</span><span >账号</span>
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text"  name="adminAccount" placeholder="账号" th:value="${adminInfo.getAdminAccount()}" th:field="${adminInfo.adminAccount}" required="" lay-verify=""
+                           onblur="notUsed(this);" autocomplete="off" class="layui-input" >
+                </div>
+
+            </div>
+          <div class="layui-form-item" >
+              <label for="username" class="layui-form-label">
+                  <span class="x-red" >*</span><span >姓名</span>
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text"  name="adminName" placeholder="姓名" th:value="${adminInfo.getAdminName()}" th:field="${adminInfo.adminName}" required="" lay-verify="required"
+                  autocomplete="off" class="layui-input">
+              </div>
+
+          </div>
+
+            <div class="layui-form-item" >
+                <label class="layui-form-label">
+                    <span >部门</span>
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text"  name="department" placeholder="部门"  th:value="${adminInfo.getDepartment()}" th:field="${adminInfo.department}" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item" >
+                <label class="layui-form-label">
+                    <span >职位</span>
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text"  name="position" placeholder="职位" th:value="${adminInfo.getPosition()}" th:field="${adminInfo.position}" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item" >
+                <label class="layui-form-label">
+                    <span class="x-red" >*</span><span >密码</span>
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_password" name="password" placeholder="密码" required="" lay-verify="password"
+                           autocomplete="off" class="layui-input" th:lay-verify="${adminInfo.getAdminAccount()} == null?'password':'required'">
+                </div>
+            </div>
+
+            <div  class="layui-form-item" th:style="${adminInfo.getAdminAccount()} != null?'display:none;':''">
+                <label class="layui-form-label">
+                    <span class="x-red" >*</span><span>再次输入密码</span>
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text"  id="L_repassword" name="repassword" placeholder="再次输入密码" lay-verify="repassword" required="" th:lay-verify="${adminInfo.getAdminAccount()} == null?'repassword':''"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div  class="layui-form-item" th:style="${adminInfo.getAdminAccount()} != null?'display:none;':''">
+                <label class="layui-form-label">
+                    <span>内容修改权限</span>
+                </label>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="permisContent" lay-filter="filter1" lay-text="开启|关闭"
+                           lay-skin="switch" th:checked="${adminInfo.getPermisContent()}">
+                </div>
+            </div>
+
+            <div  class="layui-form-item" th:style="${adminInfo.getAdminAccount()} != null?'display:none;':''">
+                <label class="layui-form-label">
+                    <span>统计分析查看权限</span>
+                </label>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="permisAnalyse" lay-filter="filter1" lay-text="开启|关闭"
+                           lay-skin="switch" th:checked="${adminInfo.getPermisAnalyse()}">
+                </div>
+            </div>
+
+            <div  class="layui-form-item" th:style="${adminInfo.getAdminAccount()} != null?'display:none;':''">
+                <label class="layui-form-label">
+                    <span>用户设置权限</span>
+                </label>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="permisUser" lay-filter="filter1" lay-text="开启|关闭"
+                           lay-skin="switch" th:checked="${adminInfo.getPermisUser()}">
+                </div>
+            </div>
+
+            <div  class="layui-form-item" th:style="${adminInfo.getAdminAccount()} != null?'display:none;':''">
+                <label class="layui-form-label">
+                    <span>设置修改权限</span>
+                </label>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="permisSetting" lay-filter="filter1" lay-text="开启|关闭"
+                           lay-skin="switch" th:checked="${adminInfo.getPermisSetting()}">
+                </div>
+            </div>
+          <div class="layui-form-item">
+              <label for="L_repass" class="layui-form-label">
+              </label>
+
+              <button  class="layui-btn" lay-filter="add" lay-submit="">
+                  添加
+              </button>
+          </div>
+      </form>
+    </div>
+
+    <script>
+        function notUsed(obj)
+        {
+            // console.log(obj.value);
+            $.ajax({type:'post',
+                url: '/manage/admininfo/count/byadminaccount/'+ obj.value,
+                data:null,
+                //data: JSON.stringify(data.field),
+                //dataType: 'text',// 可以不写
+                contentType:'application/json;charset=UTF-8',
+                success: function(result){
+                    if (result > 0) {
+                        layer.alert('用户名被占用', {icon: 1});
+                    }
+                },
+                error:function(){
+                    layer.msg('操作失败', {icon: 1});
+                }
+            });
+        }
+
+        layui.use(['form','layer'], function(){
+            $ = layui.jquery;
+          var form = layui.form
+          ,layer = layui.layer;
+        
+          //自定义验证规则
+          form.verify({
+              adminName: function(value){
+              if(value.length < 2){
+                return '姓名至少得2个字符啊';
+              }
+            }
+            ,password: [/(.+){6,12}$/, '密码必须6到16位']
+            ,repassword: function(value){
+                if($('#L_password').val()!=$('#L_repassword').val()){
+                    return '两次密码不一致';
+                }
+            }
+          });
+
+          //监听提交
+          form.on('submit(add)', function(data){
+              // console.log(data.field);
+              // console.log(JSON.stringify(data.field));
+/*              console.log(JSON.stringify({
+                  adminAccount:data.field.adminAccount,
+                  adminPassword:md5(data.field.password),
+                  adminName:data.field.adminName,
+                  department:data.field.department,
+                  position:data.field.position
+              }));*/
+/*              console.log(JSON.stringify({
+                  adminAccount:data.field.adminAccount,
+                  adminPassword:md5(data.field.password),
+                  adminName:data.field.adminName,
+                  position:data.field.position,
+                  department:data.field.department,
+                  loginCount:0,
+                  lastLoginDate:null,
+                  permisContent:data.field.permisContent=='on'?true:false,
+                  permisAnalyse:data.field.permisAnalyse=='on'?true:false,
+                  permisUser:data.field.permisUser=='on'?true:false,
+                  permisSetting:data.field.permisSetting=='on'?true:false
+              }));*/
+              // console.log(data.field.pageType == '0');
+
+              var jsonData;
+              var url;
+              if(data.field.pageType == '0')
+              {
+                  url = '/manage/admininfo/add';
+                  jsonData = JSON.stringify({
+                      adminAccount:data.field.adminAccount,
+                      adminPassword:md5(data.field.password),
+                      adminName:data.field.adminName,
+                      position:data.field.position,
+                      department:data.field.department,
+                      loginCount:0,
+                      lastLoginDate:null,
+                      permisContent:data.field.permisContent=='on'?true:false,
+                      permisAnalyse:data.field.permisAnalyse=='on'?true:false,
+                      permisUser:data.field.permisUser=='on'?true:false,
+                      permisSetting:data.field.permisSetting=='on'?true:false
+                  });
+              }else{
+                  url = '/manage/admininfo/modify';
+                  jsonData = JSON.stringify({
+                      adminAccount:data.field.adminAccount,
+                      adminPassword:md5(data.field.password),
+                      adminName:data.field.adminName,
+                      department:data.field.department,
+                      position:data.field.position
+                  });
+              }
+              $.ajax({type:'post',
+                  url: url,
+                  data:jsonData,
+                  //data: JSON.stringify(data.field),
+                  //dataType: 'text',// 可以不写
+                  contentType:'application/json;charset=UTF-8',
+                  success: function(result){
+                      console.log(result);
+                      if(data.field.pageType == '0') {
+                          layer.alert(result, {icon: 6}, function () {
+                              parent.location.reload();
+                          });
+                      }else{
+                          if (result == '密码错误') {
+                              layer.alert(result, {icon: 6});
+                          } else {
+                              layer.alert(result, {icon: 6}, function () {
+                                  parent.location.reload();
+                              });
+                          }
+                      }
+                  },
+                  error:function(){
+                      layer.msg('操作失败', {icon: 1});
+                  }
+              });
+            return false;
+          });
+        });
+
+
+    </script>
+<!--
+    <script>
+        var _hmt = _hmt || []; (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+-->
+  </body>
+
+</html>

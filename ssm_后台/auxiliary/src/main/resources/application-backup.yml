@@ -1,0 +1,57 @@
+server:
+  ################# 需要修改
+  port: 80
+
+
+logging:
+  level:
+    root: info
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    #    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.mariadb.jdbc.Driver
+    ################# 需要修改
+    url: jdbc:mysql://localhost:3306/auxiliary?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: ziteng
+  #    url: jdbc:mysql://***.***.**.**:3306/auxiliary?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+  #    username: **
+  #    password: **
+  jpa:
+    database: mysql
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    database-platform: com.paper.auxiliary.config.MySQLDialectUTF8
+    #database-platform: org.hibernate.dialect.MySQL8Dialect
+  output:
+    ansi:
+      enabled: DETECT # 开启多彩输出
+
+moduleconfig:
+  ################# 需要修改
+  islinux: n
+  isfromjson: n
+  windows_config:
+    pyinterpreter: python
+    pyconfigfile: D:\Python_workplace\config.json
+    similarity: D:\Python_workplace\hello\similarity.py
+    correction: D:\Python_workplace\hello\correction.py
+    theme: D:\Python_workplace\hello\theme.py
+  linux_config:
+    pyinterpreter: python3
+    pyconfigfile: /home/prouse/config.json
+    similarity: /home/prouse/similarity.py
+    correction: /home/prouse/correction.py
+    theme: /home/prouse/theme.py
+
+
+
+
+
+# 基础知识1：https://www.cnblogs.com/wmyskxz/p/9010832.html?tdsourcetag=s_pcqq_aiomsg
+# 基础知识2：https://www.cnblogs.com/ityouknow/p/7594801.html?tdsourcetag=s_pcqq_aiomsg

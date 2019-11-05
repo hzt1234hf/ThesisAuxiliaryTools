@@ -1,0 +1,177 @@
+<page>
+    <view class="swiper-tab">
+        <view class="swiper-tab-item {{currentTab==0?'active':''}}" data-current="0" bindtap="clickTab">
+          <view class="swiper-tab-subitem" data-current="0" bindtap="clickTab">帮助</view>
+        </view>
+        <view class="swiper-tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="clickTab"><view class="swiper-tab-subitem" data-current="1" bindtap="clickTab">相似度分析</view></view>
+        <view class="swiper-tab-item {{currentTab==2?'active':''}}" data-current="2" bindtap="clickTab"><view class="swiper-tab-subitem" data-current="2" bindtap="clickTab">错别字检测</view></view>
+        <view class="swiper-tab-item {{currentTab==3?'active':''}}" data-current="3" bindtap="clickTab"><view class="swiper-tab-subitem" data-current="3" bindtap="clickTab">主题提取</view></view>
+    </view>
+
+    <swiper class="swiper-box" current="{{currentTab}}" duration="300"  bindchange="swiperTab">
+        <!-- tab1 -->
+        <swiper-item class="swiper-items">
+            <scroll-view scroll-x="false" scroll-y="true" class='scroll-views'>
+                <view class="content">
+                    <view class="examples examples-line">
+                        <view class="title1">相似度分析示例</view>
+                        <view class="title2">原文本一:</view>
+                        <view>
+                            <text class="showintext" decode="true">如何学好深度学习</text>
+                        </view>
+                        <view class="title2">原文本二:</view>
+                        <view>
+                            <text class="showintext" decode="true" >深入学习习近平讲话材料</text>
+                        </view>
+                        <view class="title2">结果:</view>
+                        <view>
+                            <text class="showouttext" decode="true">文本一与文本二的相似度为0.312354</text>
+                        </view>
+                    </view>
+
+                    <view class="examples examples-line">
+                      <view class="title1">错别字检查示例</view>
+                      <view class="title2">原文段落:</view>
+                      <view>
+                          <text class="showintext" decode="true">中国特色社会主一，亦称“具有中锅特色社会主义”。包括中国特色社会主义道路、理轮、制度、文化。中国特色社会主义发展道路，即指由中国共产党领导中国人民实行经机建设改革开放伟大革命实践开辟的一条中国式的现代化道路；中国特色社会主义理论体系，即指中国共产党把马可思主义与中国实际相结合实现马克思主义中国化的最新理论成果。科学社会主义的基本原则与中国实际相结合的产误，具有鲜明的时代特征和中国特色。</text>
+                      </view>
+                      <view class="title2">结果:</view>
+                      <view>
+                          <text class="showouttext" decode="true">中国特色社会(主义)，(以)称“具有(中国)特色社会主义”。包括中国特色社会主义道路、(理论)、制度、文化。中国特色社会主义发展道路，即指由中国共产党领导中国人民实行(经济)建设改革开放伟大革命实践开辟的一条中国式的现代化道路；中国特色社会主义理论体系，即指中国共产党把马可思主义与中国实际相结合实现马克思主义中国化的最新理论成果。科学社会主义的基本原则与中国实际相结合的(产物)，具有鲜明的时代特征和中国特色。</text>
+                      </view>
+                    </view>
+
+                    <view class="examples">
+                      <view class="title1">主题提取示例</view>
+                      <view class="title2">原文段落:</view>
+                      <view>
+                          <text class="showintext" decode="true">比利时国脚中场费莱尼在本月初加盟中超球队山东鲁能，双方签约三年。这桩转会也引发了比利时媒体和球迷的关注，费莱尼表示自己来中国踢球不是为了钱，他还评论了自己在曼联效力的时期。</text>
+                      </view>
+                      <view class="title2">结果:</view>
+                      <view>
+                          <text class="showouttext" decode="true">体育</text>
+                      </view>
+                    </view>
+
+                </view>
+            </scroll-view>
+        </swiper-item>
+
+        <!-- tab2 -->
+        <swiper-item>
+            <scroll-view scroll-x="false" scroll-y="true" class='scroll-views'>
+                <view class="content">
+                    <view class="examples">
+                      <view>
+                          <text class="introduce" decode="true">短文本相似度分析能够提供不同短文本之间相似度的计算， 输出的相似度是一个介于0到1之间的实数值，越大则相似度越高。相似度数值建议在一组数据中进行整体比对选用，输出数值越大，则代表语义相似程度相对越高。</text>
+                      </view>
+                    </view>
+
+                    <view class="intext">
+                        <view class="title3">
+                          <view class="title4">
+                            文本一
+                          </view>
+                          <view class="title4" bindtap="bcode_click">
+                            <image src='../../images/scan.png' mode='widthFix' style='width:30px;height:30px;'></image>
+                            <view >
+                              扫码输入
+                            </view>
+                          </view>
+                        </view>
+                        <view class="paper">
+                          <textarea style="width:100%;" bindinput="bindTextAreaBlur1" value="{{first}}" placeholder='提交内容建议去除封面、目录、附录，仅提交正文即可'></textarea>
+                        </view>
+                    </view>
+
+                    <view class="intext">
+                        <view class="title3">
+                          <view class="title4">
+                            文本二
+                          </view>
+                          <view class="title4"  bindtap="bcode_click_sec">
+                            <image src='../../images/scan.png' mode='widthFix' style='width:30px;height:30px;'></image>
+                            <view>
+                              扫码输入
+                            </view>
+                          </view>
+                        </view>
+                        <view class="paper">
+                          <textarea style="width:100%;" bindinput="bindTextAreaBlur2" value="{{second}}" placeholder='提交内容建议去除封面、目录、附录，仅提交正文即可'></textarea>
+                        </view>
+                    </view>
+                    <button class="btn" bindtap="on_text_submit">提交</button>
+                    
+                </view>
+            </scroll-view>
+        </swiper-item>
+
+        <!-- tab3 -->
+        <swiper-item>
+            <scroll-view scroll-x="false" scroll-y="true" class='scroll-views'>
+                <view class="content">
+
+                    <view class="examples">
+                      <view>
+                          <text class="introduce" decode="true">输入您的文字内容，点击错别字检测按钮，系统将会自动进行文字的校验和识别，自动发现您输入内容含有的错别字，并给出明确提示。系统不但能发现错误文字信息，而且还会给出正确的文字写法提示，教会您正确的文字写法。</text>
+                      </view>
+                    </view>
+
+                    <view class="intext">
+                        <view class="title3">
+                          <view class="title4">
+                            文本：
+                          </view>
+                          <view class="title4" bindtap="bcode_click_typo">
+                            <image src='../../images/scan.png' mode='widthFix' style='width:30px;height:30px;'></image>
+                            <view>
+                              扫码输入
+                            </view>
+                          </view>
+                        </view>
+                        <view class="paper">
+                          <textarea style="width:100%;" bindinput="bindTextAreaBlur_main" value="{{typo_main}}" placeholder='提交内容建议去除封面、目录、附录，仅提交正文即可'></textarea>
+                        </view>
+                    </view>
+
+                    <button class="btn" bindtap="on_typo_submit">提交</button>
+                    
+                </view>
+            </scroll-view>
+        </swiper-item>
+
+        <!-- tab4 -->
+        <swiper-item>
+            <scroll-view scroll-x="false" scroll-y="true" class='scroll-views'>
+                <view class="content">
+
+                    <view class="examples">
+                      <view>
+                          <text class="introduce" decode="true">短文本主题提取能够通过文本中词频获取文本的主要内容，并输出关键词作为文本主题。</text>
+                      </view>
+                    </view>
+
+                    <view class="intext">
+                        <view class="title3">
+                          <view class="title4">
+                            文本：
+                          </view>
+                          <view class="title4" bindtap="bcode_click_theme">
+                            <image src='../../images/scan.png' mode='widthFix' style='width:30px;height:30px;'></image>
+                            <view>
+                              扫码输入
+                            </view>
+                          </view>
+                        </view>
+                        <view class="paper">
+                          <textarea style="width:100%;" bindinput="bindTextAreaBlur_theme" value="{{theme_main}}" placeholder='提交内容建议去除封面、目录、附录，仅提交正文即可'></textarea>
+                        </view>
+                    </view>
+
+                    <button class="btn" bindtap="on_theme_submit">提交</button>
+                    
+                </view>
+            </scroll-view>
+        </swiper-item>
+    </swiper>
+</page>

@@ -1,0 +1,44 @@
+/* pages/summary/summary.wxss */
+
+
+.modal-title {
+  padding-top: 5rpx;
+  font-size: 36rpx;
+  color: rgb(205,51,51);
+  text-align: center;
+}
+
+.modal-content {
+   text-align: center;
+}
+
+
+
+.before_content {
+  font-weight: bold;
+  font-size: 13px;
+  width: 100%;
+  justify-content: center;
+  background: #E6F3F9;
+  color: rgb(205,51,51); 
+  display: flex;
+}
+
+
+
+.thx {
+  font-weight: bold;
+  font-size: 13px;
+  width: 100%;
+  justify-content: center;
+  background: #E6F3F9;
+  color: rgb(205,51,51); 
+  display: flex;
+}
+
+
+.before {
+  font-size: 15px;
+  font-weight: bold;
+  color: rgb(36,36,36); 
+}

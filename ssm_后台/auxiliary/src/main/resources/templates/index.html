@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>论文辅助系统管理后台主页</title>
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <link rel="shortcut icon" href="../static/favicon.ico" th:href="@{/favicon.ico}" type="image/x-icon" />
+    <link rel="stylesheet" href="../static/css/font.css" th:href="@{/css/font.css}">
+	<link rel="stylesheet" href="../static/css/xadmin.css" th:href="@{/css/xadmin.css}">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../static/lib/layui/layui.js" th:src="@{/lib/layui/layui.js}" charset="utf-8"></script>
+    <script type="text/javascript" src="../static/js/xadmin.js" th:src="@{/js/xadmin.js}"></script>
+
+</head>
+<body>
+    <!-- 顶部开始 -->
+    <div class="container">
+        <div class="logo"><a href="">论文辅助系统管理后台 v1.0</a></div>
+        <div class="left_open">
+            <i title="展开左侧栏" class="iconfont">&#xe699;</i>
+        </div>
+        <ul class="layui-nav left fast-add" lay-filter="">
+          <li class="layui-nav-item">
+            <a href="javascript:;">+&nbsp;新增</a>
+            <dl class="layui-nav-child"> <!-- 二级菜单 -->
+              <dd><a onclick="x_admin_show('添加通知','./notification-add.html',900,700)" th:onclick="'x_admin_show(\'添加内容\',\'notification/add\',900,700)'"><i class="iconfont">&#xe6a2;</i>通知</a></dd>
+              <dd><a onclick="x_admin_show('添加管理员','./info-admin-add.html',500,700)" th:onclick="'x_admin_show(\'添加管理员\',\'info_admin/add\',500,700)'"><i class="iconfont">&#xe6b8;</i>管理员</a></dd>
+               <dd><a onclick="x_admin_show('添加功能模块','./moudleInfo-add.html',500,300)" th:onclick="'x_admin_show(\'添加功能模块\',\'setting_module/add\',500,300)'"><i class="iconfont">&#xe6a8;</i>功能模块</a></dd>
+            </dl>
+          </li>
+        </ul>
+        <ul class="layui-nav right" lay-filter="">
+          <li class="layui-nav-item">
+            <a href="javascript:;" th:text="${admin_info.getAdminName()}">>admin</a>
+            <dl class="layui-nav-child"> <!-- 二级菜单 -->
+              <!--<dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>-->
+              <!--<dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">切换帐号</a></dd>-->
+              <dd><a href="./login.html" th:href="@{logout}">退出</a></dd>
+            </dl>
+          </li>
+          <li class="layui-nav-item to-index"><a href="">系统首页</a></li>
+        </ul>
+    </div>
+    <!-- 顶部结束 -->
+    <!-- 中部开始 -->
+     <!-- 左侧菜单开始 -->
+    <div class="left-nav">
+      <div id="side-nav" >
+        <ul id="nav">
+            <li>
+                <a href="javascript:;" _href="./main-panel.html" th:attr="_href=@{main_panel}">
+                        <i class="iconfont">&#xe75c;</i>
+                        <cite>主面板</cite>
+                </a>
+            </li>
+            <li  th:if="${admin_info.getPermisContent()}">
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6fb;</i>
+                    <cite>信息管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="notification.html" th:attr="_href=@{/management/notification/1}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>通知列表</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="user-feedback.html" th:attr="_href=@{/usermanage/userfeedback/1}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>用户反馈</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+            <li th:if="${admin_info.getPermisAnalyse()}">
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe757;</i>
+                    <cite>统计分析</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="analyse-user.html" th:attr="_href=@{/management/analyse_user}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>用户分析</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="analyse-function.html" th:attr="_href=@{/management/analyse_function}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>功能分析</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="analyse-performance.html" th:attr="_href=@{/management/analyse_performance}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>性能分析</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+            <li th:if="${admin_info.getPermisUser()}">
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6b8;</i>
+                    <cite>用户管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a  _href="info-user.html" th:attr="_href=@{/usermanage/info_user/1}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>普通用户管理</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a  _href="info-admin.html" th:attr="_href=@{info_admin/1}" >
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>系统用户管理</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+            <li th:if="${admin_info.getPermisSetting()}">
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6ae;</i>
+                    <cite>设置</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="setting-system.html" th:attr="_href=@{setting_system}" >
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>系统设置</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="setting-module.html" th:attr="_href=@{setting_module}" >
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>功能设置</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+<!--            <li>
+                <a href="javascript:;" _href="./main-panel.html" th:attr="_href=@{/management/aboutus}">
+                    <i class="iconfont">&#xe6a4;</i>
+                    <cite>关于我们</cite>
+                </a>
+            </li>-->
+        </ul>
+      </div>
+    </div>
+    <!-- <div class="x-slide_left"></div> -->
+    <!-- 左侧菜单结束 -->
+    <!-- 右侧主体开始 -->
+    <div class="page-content">
+        <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+          <ul class="layui-tab-title">
+            <li class="home"><i class="layui-icon">&#xe68e;</i>系统首页</li>
+          </ul>
+          <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <iframe src='./welcome.html' th:src="@{welcome}" frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="page-content-bg"></div>
+    <!-- 右侧主体结束 -->
+    <!-- 中部结束 -->
+    <!-- 底部开始 -->
+    <div class="footer">
+        <div class="copyright">Copyright ©2019 Auxiliary System v1.0 All Rights Reserved. —— 本后台系统由X前端框架提供前端技术支持</div>
+    </div>
+    <!-- 底部结束 -->
+    <script>
+/*        function checkLogin()
+        {
+            $.ajax({type:'post',
+                async:false,
+                url:'/manage/islogin/',
+                dataType: 'text',// 可以不写
+                success:function (result) {
+                    if (result != 'true') {
+                        //layer.msg('False', {icon: 1});
+                        window.location.href = "login";
+                    }
+                },
+                error:function(){
+                    layer.msg('Error', {icon: 1});
+                }});
+            return true;
+        }*/
+/*    alert(layui.v); // 显示layui版本
+    // 百度统计可去掉
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();*/
+    </script>
+</body>
+</html>

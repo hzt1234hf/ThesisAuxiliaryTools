@@ -1,0 +1,43 @@
+server:
+  ################# 需要修改
+  port: 80
+
+
+logging:
+  level:
+    root: info
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/auxiliary?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: ziteng
+  jpa:
+    database: mysql
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    database-platform: com.paper.auxiliary.config.MySQLDialectUTF8
+  output:
+    ansi:
+      enabled: DETECT # 开启多彩输出
+
+moduleconfig:
+  pyinterpreter: python
+  pyconfigfile: D:\Python_workplace\config.json
+  similarity: D:\Python_workplace\hello\similarity.py
+  correction: D:\Python_workplace\hello\correction.py
+  theme: D:\Python_workplace\hello\theme.py
+
+
+
+
+
+
+# 基础知识1：https://www.cnblogs.com/wmyskxz/p/9010832.html?tdsourcetag=s_pcqq_aiomsg
+# 基础知识2：https://www.cnblogs.com/ityouknow/p/7594801.html?tdsourcetag=s_pcqq_aiomsg
+

@@ -1,0 +1,15 @@
+var sub = function(val) {
+
+  return val.substring(0, val.length-2) ;
+}
+
+
+
+
+var transfer_time = function(val){
+  return val.replace('T',' ')
+}
+
+
+module.exports.transfer_time = transfer_time;
+module.exports.sub = sub;

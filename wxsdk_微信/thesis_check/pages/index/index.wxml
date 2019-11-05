@@ -1,0 +1,47 @@
+<!--index.wxml-->
+<view class="image-parent" >
+  <!-- <image class='image' mode='widthFix' src='http://img2.imgtn.bdimg.com/it/u=2682783657,2140782244&fm=214&gp=0.jpg'></image> -->
+  <swiper indicator-dots="{{true}}" indicator-color="#888" indicator-active-color="#FB7C58" autoplay="{{autoplay}}"  duration="{{duration}}" >
+    <swiper-item wx:for="{{imgUrls}}">
+      <image src='{{item}}' mode='widthFix' style="width: 100%;" />
+    </swiper-item>
+  </swiper>
+
+  <view class="ctnt0">
+    <view  class="notify-item" style="display: flex;justify-content: center;"></view>
+    <block wx:for="{{notifications}}" wx:for-index="idx" data-idx="{{idx}}" wx:for-item="itemNotify"  >
+    <view class="notify-item flex-wrp" bindtap="itemClick" data-id="{{itemNotify.noticeId}}">
+        <view class="notify-content flex-item">
+            <text class="notify-title">{{itemNotify.title}}</text>
+            <text class="notity-detail">{{itemNotify.content}}</text>
+            <text class="notity-date">{{itemNotify.noticeDate}}</text>
+        </view>
+    </view>
+    </block>
+  </view>
+  <!-- <view class="child">
+
+<text class="title">ThesisKit-专注论文分析</text>
+    <text> \n </text>
+     <text> \n </text>
+     <text> \n </text>
+     <text> \n </text>
+    <text >匹配海量资源数据库，覆盖多个对比知识库、</text>
+    <text> \n </text>
+    <text> \n </text>
+    <text>多种学术文献类型,比对准确。</text>
+    
+    <swiper class='lunbo' autoplay='true' interval="4000">
+      <swiper-item><image src="http://aux.ziteng.online/images/wxPhoto1.jpg" width></image></swiper-item>
+      <swiper-item><image src="http://aux.ziteng.online/images/wxPhoto2.jpg"></image></swiper-item>
+      <swiper-item><image src="http://aux.ziteng.online/images/wxPhoto3.jpg"></image></swiper-item>
+    </swiper>
+
+     <text> \n </text>
+  </view> -->
+  <!-- <view>
+     <button type="primary" bindtap="jumpPage">进入功能页面</button>
+  </view> -->
+  
+</view>
+

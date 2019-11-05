@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>性能分析</title>
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+        <link rel="shortcut icon" href="../static/favicon.ico" th:href="@{/favicon.ico}" type="image/x-icon" />
+        <link rel="stylesheet" href="../static/css/font.css" th:href="@{/css/font.css}">
+        <link rel="stylesheet" href="../static/css/xadmin.css" th:href="@{/css/xadmin.css}">
+        <script type="text/javascript" src="../static/lib/layui/layui.js" th:src="@{/lib/layui/layui.js}" charset="utf-8"></script>
+
+        <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    <body  onload="getAnalyseData(dateFormate(getDefaultDate()))">
+        <div class="x-body">
+            <blockquote class="layui-elem-quote">
+                性能分析数据
+            </blockquote>
+            <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+            <div id="main" style="width: 80%;height:400px;"></div>
+            <div class="layui-row">
+                <form class="layui-form layui-col-md12 x-so">
+                    请选择数据起始时间：<input class="layui-input" placeholder="起始日期" name="start" id="start">&nbsp至今
+                </form>
+            </div>
+        </div>
+        <script src="../static/js/chart/echarts.common.min.js" th:src="@{/js/chart/echarts.common.min.js}" charset="utf-8"></script>
+
+        <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '性能使用率'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#283b56'
+                    }
+                }
+            },
+            legend: {
+                data:['CPU','内存','GPU']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            dataZoom: {
+                show: false,
+                start: 0,
+                end: 100
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: true,
+/*                    data: (function (){
+                        var now = new Date();
+                        var res = [];
+                        var len = 10;
+                        while (len--) {
+                            res.unshift(now.toLocaleTimeString().replace(/^\D*!/,''));
+                            now = new Date(now - 2000);
+                        }
+                        return res;
+                    })()*/
+                    data: []
+                },
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    scale: true,
+                    name: '百分比',
+                    max: 100,
+                    min: 0,
+                    boundaryGap: [0.2, 0.2]
+                }
+            ],
+            series: [
+                {
+                    name:'CPU',
+                    type:'line',
+/*                    data:(function (){
+                        var res = [];
+                        var len = 0;
+                        while (len < 10) {
+                            res.push(Math.random() * 100-1);
+                            len++;
+                        }
+                        return res;
+                    })()*/
+                    data:[]
+                },
+                {
+                    name:'内存',
+                    type:'line',
+/*                    data:(function (){
+                        var res = [];
+                        var len = 0;
+                        while (len < 10) {
+                            res.push(Math.random() * 100-1);
+                            len++;
+                        }
+                        return res;
+                    })()*/
+                    data:[]
+                },
+                {
+                    name:'GPU',
+                    type:'line',
+/*                    data:(function (){
+                        var res = [];
+                        var len = 0;
+                        while (len < 10) {
+                            res.push(Math.random() * 100-1);
+                            len++;
+                        }
+                        return res;
+                    })()*/
+                    data:[]
+                }
+            ]
+        };
+
+        var myChart = echarts.init(document.getElementById('main'),'light');
+
+        myChart.setOption(option);
+
+        var lastDate = dateFormate(new Date());
+        // console.log(dateFormate(new Date()));
+        // console.log(lastDate);
+
+        var curShowFrame;
+        var reLoad = false;
+        if(this.parent != null)
+        {
+            var showTab = this.parent.parent.document.getElementsByClassName('layui-tab-item layui-show');
+            // console.log(showTab);
+            if(showTab.length > 0 && showTab[0].childNodes.length > 0)
+            {
+                curShowFrame = showTab[0].childNodes[0];
+                // console.log(curShowFrame);
+                // console.log(curShowFrame.src);
+                // console.log(this.location.href);
+            }
+        }
+
+
+        function getDefaultDate() {
+            var date = new Date();
+            date.setMinutes(date.getMinutes() - 10);
+            return date;
+        }
+
+        function dateFormate(date) {
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+            var hour = date.getHours();
+            var minute = date.getMinutes();
+            var second = date.getSeconds();
+
+            if (month < 10) month = "0" + month;
+            if (day < 10) day = "0" + day;
+            if (hour >= 1 && hour <= 9) hour = "0" + hour;
+            if (minute >= 1 && minute <= 9) minute = "0" + minute;
+            if (second >= 1 && second <= 9) second = "0" + second;
+
+            return year + "-" + month + "-" + day +" " + hour + ":" + minute + ":" + second;
+        }
+
+
+
+        setInterval(function (){
+            // console.log(lastDate);
+            if(this.parent != null)
+            {
+                var showTab = this.parent.parent.document.getElementsByClassName('layui-tab-item layui-show');
+                // console.log(showTab);
+                if(showTab.length > 0 && showTab[0].childNodes.length > 0)
+                {
+                    curShowFrame = showTab[0].childNodes[0];
+                    // console.log(curShowFrame);
+                    // console.log(curShowFrame.src);
+                    // console.log(this.location.href);
+                }
+            }
+            var parentHref = curShowFrame.src;
+            var localHref = this.location.href;
+            var localEqualParent = localHref == parentHref;
+
+            if(reLoad == false && localEqualParent == false)
+            {
+                reLoad = true;
+                return;
+            }
+
+            if(reLoad == true ){
+                if(localEqualParent == true) {
+                    myChart.showLoading();
+                    myChart = echarts.init(document.getElementById('main'), 'light');
+                    reLoad = false;
+                    myChart.hideLoading();
+                    // console.log("reload");
+                }
+                else
+                    return;
+            }
+            addAnalyseData(lastDate);
+        }, 5000);
+
+
+        function addAnalyseData(nowDate)
+        {
+
+            // 使用刚指定的配置项和数据显示图表。
+
+            // console.log(JSON.stringify({date:nowDate,count:200}));
+            $.ajax({type:'post',
+                url:'/manage/analyseperformance/get/bydate',
+                data:JSON.stringify({date:nowDate,count:200}),
+                dataType: 'text',// 可以不写
+                contentType:'application/json',
+                success:function (data) {
+                    var jsonData = JSON.parse(data);
+                    // console.log(jsonData);
+                    // console.log(jsonData[0]);
+
+                    var data0 = option.series[0].data;
+                    var data1 = option.series[1].data;
+                    var data2 = option.series[2].data;
+                    var xAxisData = option.xAxis[0].data;
+
+                    jsonData.forEach(function(value,index,array){
+
+                        // data0.shift();
+                        // data1.shift();
+                        // data2.shift();
+
+                        // console.log(data0);
+                        // console.log(xAxisData);
+                        data0.push(value['perfCpu']);
+                        data1.push(value['perfMem']);
+                        data2.push(value['perfGpu']);
+
+                        lastDate = dateFormate(new Date(value['perfDate']));
+                        var getDate = lastDate;
+
+                        if(xAxisData.length > 0)
+                        {
+                            // if(xAxisData[xAxisData.length-1] != getDate)
+                                // xAxisData.shift();
+                                xAxisData.push(getDate);
+                        }else{
+                            xAxisData.push(getDate);
+                        }
+
+                        // console.log(data0);
+                        // console.log(xAxisData);
+                        // console.log(getDate + "  " + xAxisData.length);
+                    });
+
+                    // console.log(data0);
+                    // console.log(data1);
+                    // console.log(data2);
+                    // console.log(xAxisData);
+                    // console.log(xAxisData.length);
+
+                    // console.log(myChart.setOption(option));
+                    myChart.setOption(option)
+                },
+                error:function(){
+                    console.log('获取数据失败');
+                }});
+        }
+
+        function getAnalyseData(nowDate) {
+
+
+            // 使用刚指定的配置项和数据显示图表。
+
+            myChart.showLoading();
+            lastDate = nowDate;
+            // console.log("get"+JSON.stringify({date:nowDate,count:200}));
+            $.ajax({type:'post',
+                url:'/manage/analyseperformance/get/bydate',
+                data:JSON.stringify({date:nowDate,count:200}),
+                dataType: 'text',// 可以不写
+                contentType:'application/json',
+                success:function (data) {
+                    var jsonData = JSON.parse(data);
+                    // console.log(jsonData);
+                    // console.log(jsonData[0]);
+
+                    var data0 = option.series[0].data;
+                    var data1 = option.series[1].data;
+                    var data2 = option.series[2].data;
+                    var xAxisData = option.xAxis[0].data;
+
+                    data0.splice(0,data0.length);
+                    data1.splice(0,data1.length);
+                    data2.splice(0,data2.length);
+                    xAxisData.splice(0,xAxisData.length);
+                    jsonData.forEach(function(value,index,array){
+                        data0.push(value['perfCpu']);
+                        data1.push(value['perfMem']);
+                        data2.push(value['perfGpu']);
+
+                        // console.log(value['perfDate']);
+                        lastDate = dateFormate(new Date(value['perfDate']));
+                        var getDate = lastDate;
+
+                        if(xAxisData.length > 0)
+                        {
+                            if(xAxisData[xAxisData.length-1] != getDate)
+                                xAxisData.push(getDate);
+                        }else{
+                            xAxisData.push(getDate);
+                        }
+                        // console.log(getDate + "  " + xAxisData.length);
+                    });
+
+                    // console.log(data0);
+                    // console.log(data1);
+                    // console.log(data2);
+                    // console.log(xAxisData);
+                    // console.log(xAxisData.length);
+                    // console.log(lastDate);
+
+                    myChart.hideLoading();
+                    myChart.setOption(option);
+
+                },
+                error:function(){
+                    console.log('获取数据失败');
+                }});
+        }
+
+        layui.use('laydate', function(){
+            var laydate = layui.laydate;
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#start' //指定元素
+                ,value: getDefaultDate()
+                ,calendar: true
+                ,type: 'datetime'
+                ,ready: function(date){
+                }
+                ,done: function(value, date, endDate){
+                    getAnalyseData(value);
+                    // console.log("done");
+                    // console.log(value); //得到日期生成的值，如：2017-08-18
+                }
+            });
+        });
+    </script>
+<!--    <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>-->
+    </body>
+</html>

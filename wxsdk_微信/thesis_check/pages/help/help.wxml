@@ -1,0 +1,53 @@
+<!--pages/help/help.wxml-->
+<!--<video src="http://www.w3school.com.cn//i/movie.mp4" binderror="videoErrorCallback"></video>-->
+<view class="content">
+    <view >
+      <text class="title1">示例一(相似度分析)</text>
+    </view>
+     <text> \n </text>
+    <text class="simi">原文本一:</text>  
+    <view>
+    <text class="simi1_content" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;如何学好深度学习</text>
+    </view>
+    <text class="simi" >原文本二:</text>
+    <view>
+    <text class="simi1_content" decode="{{true}}" >&nbsp;&nbsp;&nbsp;&nbsp;深入学习习近平讲话材料</text>
+    </view>
+    <text class="simi">结果:</text>
+     <view>
+    <text class="result" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;文本一与文本二的相似度为0.312354</text>
+    </view>
+     <text> \n </text>
+     <view class='line'></view>
+     <view >
+      <text class="title1">示例二(错别字检查)</text>
+    </view>
+     <text> \n </text>
+     
+    <text class="simi">原文段落:</text>  
+    <view>
+    <text class="simi1_content" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;中国特色社会主一，亦称“具有中锅特色社会主义”。包括中国特色社会主义道路、理轮、制度、文化。中国特色社会主义发展道路，即指由中国共产党领导中国人民实行经机建设改革开放伟大革命实践开辟的一条中国式的现代化道路；中国特色社会主义理论体系，即指中国共产党把马可思主义与中国实际相结合实现马克思主义中国化的最新理论成果。科学社会主义的基本原则与中国实际相结合的产误，具有鲜明的时代特征和中国特色。</text>
+    </view>
+ 
+    <text class="simi">结果:</text>
+     <view>
+    <text class="result" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;中国特色社会(主义)，(以)称“具有(中国)特色社会主义”。包括中国特色社会主义道路、(理论)、制度、文化。中国特色社会主义发展道路，即指由中国共产党领导中国人民实行(经济)建设改革开放伟大革命实践开辟的一条中国式的现代化道路；中国特色社会主义理论体系，即指中国共产党把马可思主义与中国实际相结合实现马克思主义中国化的最新理论成果。科学社会主义的基本原则与中国实际相结合的(产物)，具有鲜明的时代特征和中国特色。</text>
+    </view>
+         <text> \n </text>
+     <view class='line'></view>
+     <view >
+      <text class="title1">示例三(主题提取)</text>
+    </view>
+     <text> \n </text>
+     
+    <text class="simi">原文段落:</text>  
+    <view>
+    <text class="simi1_content" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;比利时国脚中场费莱尼在本月初加盟中超球队山东鲁能，双方签约三年。这桩转会也引发了比利时媒体和球迷的关注，费莱尼表示自己来中国踢球不是为了钱，他还评论了自己在曼联效力的时期。</text>
+    </view>
+ 
+    <text class="simi">结果:</text>
+     <view>
+    <text class="result" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;体育</text>
+    </view>
+    
+  </view>

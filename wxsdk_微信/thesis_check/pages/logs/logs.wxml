@@ -1,0 +1,25 @@
+<view bindtouchstart="touchHide" bindtouchend="touchShow">
+  <view class="detail">
+    <view class="detail-box">
+        <text class="title">{{title}}</text>
+        <view>
+          <text class="time">{{date}}</text>
+          <!-- <text class="contactMeBtn" bindtap="modalTap">联系我们</text> -->
+        </view>
+    </view>
+    <view class="content">
+      <text style="font-size:14px;" decode='true'>{{content1}}</text>
+      <text style="font-size:14px;color:rgb(205,51,51);" decode='true'>{{content2}}</text>
+    </view>
+  </view>
+</view>
+
+<!--<view class="hover-btn" catchtap="modalTap" hidden="{{btnHidden}}">
+  <image src="../../images/icon.png" />
+</view>-->
+
+<!-- <view title="" confirm-text="关闭" hidden="{{modalHidden}}" no-cancel bindconfirm="modalHide">
+    <view style="text-align: center" class="contactMe" bindtap="contactMe">
+        QQ群：875672089
+    </view>    
+</view> -->

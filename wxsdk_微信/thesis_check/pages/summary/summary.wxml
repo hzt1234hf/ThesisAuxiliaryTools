@@ -1,0 +1,31 @@
+<!--pages/summary/summary.wxml-->
+<wxs src="../../wxs/subutil.wxs" module="tools" />
+<view>
+   <view>
+        <text class="before">原文段落:</text>
+   </view>
+
+   <view>
+        <text class="before_content">待完成</text>
+   </view>
+ 
+  <view>
+
+
+  <view>
+    <text> \n </text>
+    <text> \n </text>
+  </view>
+        <text class="before">结果:</text>
+   </view>
+  <view>
+    <block wx:for="{{taskcontent}}" wx:key="{{outId}}">
+          <view class="modal-title">Task-{{item.logId}}</view>
+      <view class='line'></view>
+        <view class="thx" >{{item.outData}}</view>
+      <view class="thx" >{{tools.transfer_time(item.date)}}</view>
+      </block>
+ </view>
+
+
+</view>

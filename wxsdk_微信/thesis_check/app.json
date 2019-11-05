@@ -1,0 +1,52 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/document/doc_check",
+    "pages/external/out",
+    "pages/result/history",
+    "pages/help/help",
+    "pages/feedback/feedback",
+    "pages/summary/summary",
+    "pages/article/detail"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#333",
+    "navigationBarTitleText": "ThesisKit 论文辅助分析",
+    "navigationBarTextStyle": "white",
+    "enablePullDownRefresh": true
+  },
+  "tabBar": {
+    "color": "#a9a9a9",
+    "selectedColor": "#3b3b3b",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath":"images/index.png",
+        "selectedIconPath":"images/indexSelected2.png"
+      },
+      {
+        "pagePath": "pages/document/doc_check",
+        "text": "论文分析",
+        "iconPath": "images/analyse.png",
+        "selectedIconPath": "images/analyseSelected2.png"
+      },
+      {
+        "pagePath": "pages/result/history",
+        "text": "查看历史",
+        "iconPath": "images/log.png",
+        "selectedIconPath": "images/logSelected2.png"
+      },
+      {
+        "pagePath": "pages/feedback/feedback",
+        "text": "用户反馈",
+        "iconPath": "images/feedback.png",
+        "selectedIconPath": "images/feedbackSelected2.png"
+      }
+    ]
+  }
+}

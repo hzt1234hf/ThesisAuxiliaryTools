@@ -1,0 +1,41 @@
+server:
+  port: 80
+
+logging:
+  level:
+    root: info
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mysql://请改成.自己的.I.P:3306/auxiliary?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: ****请改成自己的账户
+    password: ****请改成自己的密码
+  jpa:
+    database: mysql
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    database-platform: com.paper.auxiliary.config.MySQLDialectUTF8
+  output:
+    ansi:
+      enabled: DETECT # 开启多彩输出
+
+moduleconfig:
+  pyinterpreter: python3
+  pyconfigfile: /home/prouse/config.json
+  similarity: /home/prouse/similarity.py
+  correction: /home/prouse/correction.py
+  theme: /home/prouse/theme.py
+
+
+
+
+
+
+# 基础知识1：https://www.cnblogs.com/wmyskxz/p/9010832.html?tdsourcetag=s_pcqq_aiomsg
+# 基础知识2：https://www.cnblogs.com/ityouknow/p/7594801.html?tdsourcetag=s_pcqq_aiomsg
+

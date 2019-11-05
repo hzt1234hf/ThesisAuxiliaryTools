@@ -1,0 +1,173 @@
+.his_title {
+  display: flex;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  justify-content: center;
+  color: rgb(36,36,36); 
+}
+
+
+.table {
+  /* border: 1px solid darkgray; */
+  border-style: solid;
+  border-width: 2px 0 0 0;
+  border-color: darkgray;
+  margin:0 0;
+}
+
+.tr {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 3rem;
+  align-items: center;
+}
+.th {
+
+  /* width: 25%; */
+  justify-content: center;
+  background: #333;
+  color: #fff;
+  display: flex;
+  height: 3rem;
+  align-items: center;
+  font-size: 16px;
+}
+.td {
+    /* width:25%; */
+    justify-content: center;
+    text-align: center;
+    font-size: 14px;
+}
+.bgcolor1{
+  /* background: rgb(250, 250, 250); */
+  background: #f5f5f5;
+}
+.bgcolor2{
+  /* background: #e6f0f8; */
+  background: #fff;
+}
+.result{
+  color: #3399ee;
+}
+
+.th10{
+  width: 10%;
+}
+.th15{
+  width: 15%;
+}
+.th20{
+  width: 20%;
+}
+.th25{
+  width: 25%;
+}
+.th30{
+  width: 30%;
+}
+.th40{
+  width: 40%;
+}
+.show-btn {
+  margin-top: 100rpx;
+  color: #22cc22;
+}
+
+.modal-mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.3;
+  overflow: hidden;
+  z-index: 9000;
+  color: #fff;
+}
+
+.modal-dialog {
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* height: 100%; */
+  overflow: hidden;
+  position: fixed;
+  z-index: 9999;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+.modal-content {
+  width: 80%; 
+  max-height: 80%;
+  margin: 20rpx auto;
+  padding:15rpx;
+  border-radius: 36rpx;
+  background-color: white;
+  text-align: left;
+}
+.modal-title {
+  padding-top: 5rpx;
+  font-size: 36rpx;
+  color: #030303;
+  text-align: center;
+}
+
+
+
+
+
+.thx {
+  max-height: 45%;
+  font-weight: bold;
+  font-size: 13px;
+  width: 100%;
+  justify-content: center;
+  color: rgb(205,51,51);
+  display: flex;
+  margin:15rpx 0;
+}
+
+
+.thu {
+  font-weight: bold;
+  font-size: 13px;
+  width: 100%;
+  justify-content: center;
+  color: #33aaff;
+  display: flex;
+  margin:15rpx 0;
+}
+
+
+
+.thi {
+  max-height: 45%;
+  font-weight: bold;
+  font-size: 13px;
+  width: 100%;
+  justify-content: center;
+  color: #3f3f3f;
+  display: flex;
+  margin:15rpx 0;
+}
+
+
+
+
+
+
+
+.line{
+margin: 0 auto;
+width: 100%;
+height: 2rpx;
+background-color: #D8D8D8;
+}
+
+

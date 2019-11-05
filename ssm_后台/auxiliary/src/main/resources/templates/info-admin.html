@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>管理员信息</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="../static/favicon.ico" th:href="@{/favicon.ico}" type="image/x-icon" />
+    <link rel="stylesheet" href="../static/css/font.css" th:href="@{/css/font.css}">
+    <link rel="stylesheet" href="../static/css/xadmin.css" th:href="@{/css/xadmin.css}">
+    <link rel="stylesheet" href="../static/css/auxiliary.css" th:href="@{/css/auxiliary.css}">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/lib/layui/layui.js" th:src="@{/lib/layui/layui.js}" charset="utf-8"></script>
+    <script type="text/javascript" src="../static/js/xadmin.js" th:src="@{/js/xadmin.js}"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  
+  <body class="layui-anim layui-anim-up">
+    <div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a>首页</a>
+        <a>用户管理</a>
+        <a>
+          <cite>管理员信息</cite></a>
+      </span>
+      <a class="layui-btn layui-btn-small auxiliary-color-blue" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    </div>
+    <div class="x-body">
+<!--      <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so">
+          <input class="layui-input" placeholder="开始日" name="start" id="start">
+          <input class="layui-input" placeholder="截止日" name="end" id="end">
+          <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+          <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+      </div>-->
+      <xblock>
+        <button class="layui-btn auxiliary-color-red" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+        <button class="layui-btn auxiliary-color-blue" onclick="x_admin_show('添加管理员','./info-admin-add.html',500,700)" th:onclick="'x_admin_show(\'添加管理员\',\'add\',500,700)'"><i class="layui-icon"></i>添加</button>
+        <span class="x-right" style="line-height:40px" th:text="'共有数据：'+${adminInfoCount} + '条'">共有数据：88 条</span>
+      </xblock>
+      <table class="layui-table layui-form">
+        <thead>
+          <tr>
+            <th>
+              <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+            </th>
+            <th>序号</th>
+            <th>账号</th>
+            <th>姓名</th>
+            <th>部门</th>
+            <th>职位</th>
+            <th>上次登陆时间</th>
+            <th>总计登录次数</th>
+            <th>内容查看修改权限</th>
+            <th>统计分析查看权限</th>
+            <th>设置查看修改权限</th>
+            <th>用户查看修改权限</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="info,iter:${admin_infos}">
+            <td>
+              <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='1' th:attr="data-id=${info.getAdminAccount()}"><i class="layui-icon">&#xe605;</i></div>
+            </td>
+            <td th:text="${iter.index} + (${page}-1) * ${iterPerPage} + 1">1</td>
+            <td id="adminAccount" value="abc" th:value="${info.getAdminAccount()}" th:text="${info.getAdminAccount()}">abc</td>
+            <td th:text="${info.getAdminName()}">小明</td>
+            <td th:text="${info.getDepartment()}">管理部门</td>
+            <td th:text="${info.getPosition()}">CEO</td>
+            <td th:text="${info.getLastLoginDate()}">2017-01-01 11:11:42</td>
+            <td th:text="${info.getLoginCount()}">1241</td>
+            <td>
+              <input type="checkbox" name="switch" th:name="switch1" th:value="${info.getAdminAccount()}" lay-filter="filter1" lay-text="开启|关闭" lay-skin="switch" th:checked="${info.getPermisContent()}" th:if="!${info.getSuperAdmin()}" >
+            </td>
+            <td>
+              <input type="checkbox" name="switch" th:name="switch2" th:value="${info.getAdminAccount()}"  lay-filter="filter1" lay-text="开启|关闭" lay-skin="switch" th:checked="${info.getPermisAnalyse()}" th:if="!${info.getSuperAdmin()}" >
+            </td>
+            <td>
+              <input type="checkbox" name="switch" th:name="switch3" th:value="${info.getAdminAccount()}"  lay-filter="filter1" lay-text="开启|关闭" lay-skin="switch" th:checked="${info.getPermisUser()}" th:if="!${info.getSuperAdmin()}" >
+            </td>
+            <td>
+              <input type="checkbox" name="switch" th:name="switch4" th:value="${info.getAdminAccount()}"  lay-filter="filter1" lay-text="开启|关闭" lay-skin="switch" th:checked="${info.getPermisSetting()}" th:if="!${info.getSuperAdmin()}" >
+            </td>
+            <td class="td-manage" th:if="${info.getSuperAdmin()}?(${session.Admin_Info}?${session.Admin_Info.getAdminAccount()} == ${info.getAdminAccount()}:false):true">
+              <a title="编辑"  onclick="x_admin_show('编辑','info-admin-add.html',500,400)" th:account="${info.getAdminAccount()}" th:onclick="'x_admin_show(\'编辑\',\'edit/info/\'+this.getAttribute(\'account\'),500,400)'" href="javascript:;">
+                <i class="layui-icon">&#xe642;</i>
+              </a>
+              <a title="修改密码" onclick="x_admin_show('修改密码','info-admin-modify-password.html',500,400)" th:account="${info.getAdminAccount()}" th:onclick="'x_admin_show(\'编辑\',\'edit/password/\'+this.getAttribute(\'account\'),500,400)'"  href="javascript:;">
+                <i class="layui-icon">&#xe631;</i>
+              </a>
+              <a title="删除" th:if="!${info.getSuperAdmin()}"  th:account="${info.getAdminAccount()}" onclick="adminInfo_del(this,'')"  th:onclick="'adminInfo_del(this,this.getAttribute(\'account\'))'" href="javascript:;">
+                <i class="layui-icon">&#xe640;</i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="page">
+        <div>
+          <a th:if="${page} > 1" class="prev auxiliary-color-white" th:href="1">&lt;&lt;</a>
+          <a th:if="${page} > 1" class="prev auxiliary-color-white" th:href="${page}-1">&lt;</a>
+          <!--<a th:each="pages:${#numbers.sequence(${page}-3,${page}-1)}" th:if="(${pages} < ${page} and (${pages}+3) > ${page}) or (${pages} > ${page} and (${pages}-3) < ${page})" th:class="num" th:href="${pages}" th:text="${pages}"></a>-->
+          <a th:each="pages:${#numbers.sequence(page - 3,page - 1)}" th:if="${pages} >= 1" th:class="num" th:href="${pages}" th:text="${pages}">1</a>
+          <span class="current auxiliary-color-blue" th:text="${page}">2</span>
+          <a th:each="pages:${#numbers.sequence(page + 1,page + 3)}" th:if="${pages} <= ${pageCount}" th:class="num" th:href="${pages}" th:text="${pages}">3</a>
+          <a th:if="${pageCount} > ${page}" class="next auxiliary-color-white" th:href="${page}+1">&gt;</a>
+          <a th:if="${page} != ${pageCount}" class="next auxiliary-color-white" th:href="${pageCount}">&gt;&gt;</a>
+        </div>
+      </div>
+
+    </div>
+    <script>
+      layui.use(['form','laydate'], function(){
+        var laydate = layui.laydate;
+        
+/*        //执行一个laydate实例
+        laydate.render({
+          elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+          elem: '#end' //指定元素
+        });*/
+
+        // 加载layui form组件
+        form = layui.form;
+        // 权限修改事件
+        form.on('switch(filter1)', function(data){
+
+          console.log({'adminAccount':data.elem.value,'permisContent':data.elem.checked});
+
+          if(data.elem.name == 'switch')
+          {
+            layer.msg('假设保存成功![笑]' + data.elem.checked,{icon:1,time:700});
+            return;
+          }
+
+          switch (data.elem.name) {
+            case 'switch1':{
+              $.post("/manage/admininfo/modify/permission/content",{'adminAccount':data.elem.value,'val':data.elem.checked},function(result){
+                if(result >= 1)
+                  layer.msg('保存成功!',{icon:1,time:700});
+              },"json");
+            }break;
+            case 'switch2':{
+              $.post("/manage/admininfo/modify/permission/analyse",{'adminAccount':data.elem.value,'val':data.elem.checked},function(result){
+                if(result >= 1)
+                  layer.msg('保存成功!',{icon:1,time:700});
+              },"json");
+            }break;
+            case 'switch3':{
+              $.post("/manage/admininfo/modify/permission/user",{'adminAccount':data.elem.value,'val':data.elem.checked},function(result){
+                if(result >= 1)
+                  layer.msg('保存成功!',{icon:1,time:700});
+              },"json");
+            }break;
+            case 'switch4':{
+              $.post("/manage/admininfo/modify/permission/setting",{'adminAccount':data.elem.value,'val':data.elem.checked},function(result){
+                if(result >= 1)
+                  layer.msg('保存成功!',{icon:1,time:700});
+              },"json");
+            }break;
+          }
+        });
+      });
+
+/*       /!*用户-停用*!/
+      function member_stop(obj,id){
+          layer.confirm('确认要停用吗？',function(index){
+
+              if($(obj).attr('title')=='启用'){
+
+                //发异步把用户状态进行更改
+                $(obj).attr('title','停用')
+                $(obj).find('i').html('&#xe62f;');
+
+                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
+                layer.msg('已停用!',{icon: 5,time:1000});
+
+              }else{
+                $(obj).attr('title','启用')
+                $(obj).find('i').html('&#xe601;');
+
+                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
+                layer.msg('已启用!',{icon: 5,time:1000});
+              }
+              
+          });
+      }*/
+
+      /**
+       * 删除管理员
+       * @param obj html对象
+       * @param account 删除的管理员account
+       */
+      function adminInfo_del(obj,account){
+
+        console.log(account);
+        if("" == account)
+        {
+          layer.msg('假设删除成功![笑]',{icon:1,time:1500});
+          $(obj).parents("tr").remove();
+          return;
+        }
+        layer.confirm('确认要删除吗？',function(index){
+          //发异步删除数据
+          $.post("/manage/admininfo/delete/byaccount/" + account,function(){
+            layer.msg('删除成功!',{icon:1,time:1500});
+            $(obj).parents("tr").remove();
+          });
+        });
+      }
+
+
+
+      function delAll (argument) {
+
+/*        var data = tableCheck.getData();
+  
+        layer.confirm('确认要删除吗？'+data,function(index){
+            //捉到所有被选中的，发异步进行删除
+            layer.msg('删除成功', {icon: 1});
+            $(".layui-form-checked").not('.header').parents('tr').remove();
+        });*/
+
+
+        var delAccounts = tableCheck.getData();
+        console.log(JSON.stringify(delAccounts));
+
+        if(delAccounts == null) return;
+        layer.confirm('确认要删除账户为 '+ delAccounts +' 的设置吗？',function(index){
+          //捉到所有被选中的，发异步进行删除
+          $.ajax({type:'post',
+            url:'/manage/admininfo/delete/byaccounts/',
+            data:JSON.stringify(delAccounts),
+            dataType: 'text',// 可以不写
+            contentType:'application/json',
+            success:function () {
+              layer.msg('删除成功', {icon: 1});
+              $(".layui-form-checked").not('.header').parents('tr').remove();
+              location.reload();
+            },
+            error:function(){
+              layer.msg('删除失败', {icon: 1});
+            }});
+        });
+      }
+    </script>
+<!--    <script>var _hmt = _hmt || []; (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();</script>-->
+  </body>
+
+</html>

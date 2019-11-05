@@ -1,0 +1,38 @@
+<wxs src="../../wxs/subutil.wxs" module="tools" />
+<!-- <text class="his_title">文本分析历史</text> -->
+<view class="table">
+  <view class="tr">
+    <view class="th th15">序号</view>
+    <view class="th th20">功能类别</view>
+    <view class="th th25">处理状态</view>
+    <view class="th th40">提交时间</view>
+  </view>
+  <block wx:for="{{listData}}" wx:key="{{logId}}">
+    <view class="tr bgcolor{{index%2?'1':'2'}}">
+      <view class="td th15">{{index+1}}</view>
+      <view class="td th20">{{item.moudleName}}</view>
+      <view class="td th25 {{item.isFinished=='1'?'result':''}}" data-id="{{item.logId}}"  bindtap="log_click">{{item.isFinished=="1"?"查看结果":"待处理"}}</view>
+      <view class="td th40" >{{tools.sub(item.logDate)}}</view>
+    </view>
+    <!-- <view class="tr" wx:else>
+      <view class="td" data-id="{{item.logId}}"  bindtap="log_click">{{index+1}}</view>
+      <view class="td" data-id="{{item.logId}}"  bindtap="log_click">{{item.moudleName}}</view>
+      <view class="td" data-id="{{item.logId}}"  bindtap="log_click">{{item.isFinished}}</view>
+      <view class="td" data-id="{{item.logId}}"  bindtap="log_click">{{tools.sub(item.logDate)}}</view>
+    </view> -->
+  </block>
+
+  <!--弹窗-->
+
+</view>
+<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<view class="modal-dialog" wx:if="{{showModal}}">
+  <view class="modal-content">
+      <!-- <view class="modal-title">Task-{{taskcontent.logId}}</view> -->
+      <text class="thi" decode='true' >原文本:\n{{taskcontent.inData}}</text>
+      <text class="thx" >处理结果:\n{{taskcontent.outData}}</text>
+	    <text class="thx" >报告生成时间：{{tools.sub(taskcontent.date)}}</text>
+      <view class="thu" bindtap="logClick" data-id="{{taskcontent.logId}}" 
+      wx:if="{{taskcontent.inData.length>maxLength || taskcontent.outData.length>maxLength}}">查看完整报告</view>
+  </view>
+</view>

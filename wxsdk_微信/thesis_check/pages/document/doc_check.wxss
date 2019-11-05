@@ -1,0 +1,154 @@
+/* pages/doc_check.wxss */
+
+page{
+    height: 100%;
+    background-color:#f7f7f7;
+}
+.swiper-tab{
+    width: 100%;
+    border-bottom: 2rpx solid #ccc;
+    text-align: center;
+    height: 7%;
+    /* line-height: 100%; */
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+.swiper-tab-item{
+    /* margin: auto 0; */
+    height:100%;
+    width: 25%; 
+    color:#3f3f3f;
+    font-size: 14px;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+.swiper-tab-subitem{
+    margin: auto 0;
+    width: 100%; 
+    color:#3f3f3f;
+    font-size: 14px;
+}
+.active{
+    color:#F65959;
+    border-bottom: 4rpx solid #F65959;
+}
+swiper{
+  text-align: center;
+}
+
+.swiper-box{ 
+    display: block; 
+    width: 100%; 
+    height: 93%; 
+    overflow: hidden;
+}  
+.swiper-items{
+  height: 100%;
+}
+.scroll-views{
+  height: 100%;
+}
+
+::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+    color: transparent;
+}
+/* ################################################# */
+
+.content{
+  align-items: left;
+  text-align: left;
+  margin: 0 0 20px 0;
+}
+
+.title1 {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #3f3f3f;
+  margin:20px 0 20px 0;
+}
+
+.title2 {
+  width:100%;
+  font-size: 17px;
+  margin:10px 0;
+  color: rgb(36,36,36);
+}
+.title3{
+  width:17%;
+  font-size: 16px;
+  display: inline-block;
+  padding:10px 5px;
+}
+.title3 view{
+  font-size: 14px;
+}
+.title4{
+  margin:0 0 10px 0;
+  text-align: center;
+}
+.paper{
+  width:83%;
+  font-size: 14px;
+  display: inline-block;
+  padding:10px 5px;
+}
+
+.examples-line{
+  border-style: solid;
+  border-width:  0 0 1px 0;
+  border-color:darkgray;
+}
+.examples{
+  height:auto;
+  padding: 0 0 20px 0;
+  margin:10px;
+}
+
+.showintext{
+  padding: 0 0 0 20px;
+  width:100%;
+  font-size: 14px;
+  color: rgb(16, 5, 109);
+}
+.showouttext{
+  padding: 0 0 0 20px;
+  font-size: 15px;
+  font-weight: bold;
+  color: rgb(205,51,51);
+}
+
+.intext{
+  flex-direction:row;
+  width:100%;
+  font-size: 14px;
+  background-color: white;
+  display: flex;
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: darkgray;
+  margin:20px 0;
+}
+
+.introduce{
+  padding: 0 0 0 20px;
+  width:100%;
+  font-size: 14px;
+}
+.scan{
+  background-image:url(/images/scan.png);
+  width:42px;
+  height:42px;
+}
+
+.btn{
+  width:85%;
+  background-color:#3f3f3f;
+  color:white;
+}
