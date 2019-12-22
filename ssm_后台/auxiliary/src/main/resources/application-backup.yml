@@ -17,7 +17,7 @@ spring:
     ################# 需要修改
     url: jdbc:mysql://localhost:3306/auxiliary?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
     username: root
-    password: ziteng
+    password: 123456
   #    url: jdbc:mysql://***.***.**.**:3306/auxiliary?useUnicode=true&characterEncoding=UTF-8&useSSL=false
   #    username: **
   #    password: **

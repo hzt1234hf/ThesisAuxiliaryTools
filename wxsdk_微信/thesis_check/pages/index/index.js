@@ -99,7 +99,7 @@ Page({
                 // });
 
               }else{
-                app.globalData.openid = "g4235hw43styhje54rew";
+                app.globalData.openid = "g42353egestyhje54rew";
                 console.info("调试模式使用默认OpenId：" + app.globalData.openid);
 
                 wx.request({
